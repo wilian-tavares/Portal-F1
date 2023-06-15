@@ -2,7 +2,7 @@
 export default function Seassons() {
     return(
         <div>
-            <h1>Page Drivers</h1>
+            <h1>Page Temporadas</h1>
         </div>
     )
 }

@@ -1,11 +1,13 @@
 //import './global.css';
 
+import styles from './styles/global.module.scss'
 import RoutesApp from "./routes";
 
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
+      
       <RoutesApp />
     </div>
   );

@@ -2,7 +2,7 @@
 export default function Personalizada() {
     return(
         <div>
-            <h1>Page Drivers</h1>
+            <h1>Page Personalizada</h1>
         </div>
     )
 }
