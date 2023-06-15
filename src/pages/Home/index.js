@@ -2,17 +2,21 @@ import { useState, useEffect } from "react";
 import api from '../../Services/api';
 
 
-function Home() {
+export default function Home() {
 const [allPilots, setAllPilots] = useState([])
 
 
 async function getPilots() {
   try {
     const response = await api.get('2023/drivers.json')
-    const data = response.data.MRData.DriverTable.Drivers;
+    // const data = response.data.MRData.DriverTable.Drivers;
+       const data = response.data.MRData.DriverTable.Drivers;
+
     
     setAllPilots(data)
     console.log(allPilots)
+    
+    
     
   } catch (error) {
     console.log(error)
@@ -31,7 +35,7 @@ getPilots()
   return (
     <div className="App">
       
-     <h1>Portal-F1</h1>
+     <h1>Portal-F1 Home</h1>
      
      {
        allPilots.map((driver) => {
@@ -53,4 +57,4 @@ getPilots()
   );
 }
 
-export default Home;
+
