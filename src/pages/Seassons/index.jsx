@@ -30,8 +30,6 @@ export default function Seassons() {
 
       setSeason(data);
       setYear(dataSeasson);
-      console.log('temporada API ' + year);
-      console.log('temporada de ' + dataSeasson);
     } catch (error) {
       console.log(error);
     }
@@ -43,9 +41,7 @@ export default function Seassons() {
 
   function handleChange(e) {
     setNewYear(e.target.value);
-    console.log('NewYear = ' + newYear);
-    console.log('year = ' + year);
-    console.log('e = ' + e);
+    
   }
 
   async function newSearch() {
