@@ -18,7 +18,7 @@ async function getPilots() {
 
     
     setAllPilots(data)
-    console.log(allPilots)
+    //console.log(allPilots)
     
     
     
@@ -35,13 +35,14 @@ try {
   const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
   const dataSeasson = response.data.MRData.StandingsTable.season;
   const dataRound = response.data.MRData.StandingsTable.StandingsLists[0].round;
-  
+
+
 
   setDriverStandings(data)
   setSeason(dataSeasson)
   setRound(dataRound)
-  console.log(dataRound)
 
+  console.log(data)
 
 
 } catch (error) {
@@ -65,50 +66,39 @@ getdriverStandings()
       
      <h1>Portal-F1 Home</h1>
 
-     
-     {
-      //  allPilots.map((driver) => {
-      //    return(
-      //     <ul key={driver.driverId}>
-      //       <li>Name: {driver.givenName} {driver.driverId}</li>
-      //       <li>N°: {driver.permanentNumber}</li>
-      //       <li>Country: {driver.nationality}</li>
-      //       <li>aniversary: {driver.dateOfBirth}</li>
-      //     </ul>
-        
-      //   )
-      // })
-    }
+    
      <aside >
       <strong>Temporada {season} - Corrida: {round}</strong>
      
 
     <table>     
+      <tbody>
       <tr>
-        <td>Posição</td>
-        <td>Piloto</td>
-        <td>Pontos</td>
-        <td>Vitórias</td>       
+        <th>Posição</th>
+        <th>Piloto</th>
+        <th>Team</th>
+        <th>Pontos</th>
+        <th>Vitórias</th>       
       </tr>   
 
-         {/* <td>{driver.position}</td>
-              <td>{driver.Driver?.givenName} {driver.Driver?.driverId}</td>
-              <td>{driver.points}</td> */}
+       
       {
         driverStandings.map((driver, index) => {
           return(
             <CardPilots key={index}
               Position={driver.position}
 
-              GivernName={driver.Driver?.givenName} DriverId={driver.Driver?.driverId}
-                Points={driver.points}
-                Wins={driver.wins}
+              GivernName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
+              Team={driver.Constructors[0].name}
+              Points={driver.points}
+              Wins={driver.wins}
 
            
               />
               )
             })
         }
+        </tbody>
       </table>
 
     </aside>

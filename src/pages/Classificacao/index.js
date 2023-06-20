@@ -14,6 +14,7 @@ const [driverStandings, setDriverStandings] = useState([])
 
         setDriverStandings(data)
         console.log(data)
+      
 
 
       } catch (error) {
