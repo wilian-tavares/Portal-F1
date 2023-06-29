@@ -1,10 +1,25 @@
 
 import { useState, useEffect } from "react";
-import api from "../../Services/api"
+import api from "../../Services/api";
+import React from "react";
+
+
+interface DriverStandingsProps {
+position: string;
+driver: string;
+Driver: {
+    givenName: string;
+    driverId: string;
+  };
+points: number;
+wins: number;
+}
+
+
 
 
 export default function Classificacao() {
-const [driverStandings, setDriverStandings] = useState([])
+const [driverStandings, setDriverStandings] = useState<DriverStandingsProps[]>([])
 
     async function getdriverStandings(){
       try {
