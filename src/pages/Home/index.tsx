@@ -3,6 +3,8 @@ import api from '../../Services/api';
 import CardPilots from "../../components/CardPilots";
 import React from "react";
 
+import styles from './home.module.scss';
+
 
 
 export default function Home() {
@@ -61,7 +63,7 @@ useEffect(() => {
      <h1>Portal-F1 Home</h1>
 
     
-     <aside >
+     <aside className={styles.aside}>
       <strong>Temporada {season} - Corrida: {round}</strong>
      
 

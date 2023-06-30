@@ -1,0 +1,23 @@
+.personalizadaContainer{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form {
+        display: flex;
+        border: 1px solid black;
+    
+        .inputSelector {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .cardsContainer {
+        width: 100%;
+        
+        
+    }
+}

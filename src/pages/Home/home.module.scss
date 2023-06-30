@@ -1,0 +1,28 @@
+.aside {
+    position: absolute;
+    right: 0;
+    border: 1px solid black;
+   
+    width: 500px;
+}
+
+table {
+    color: var(--white);
+    text-align: center;
+
+    
+
+    tr:nth-child(odd) {
+        background-color: #22222C;
+        }
+    tr:nth-child(even) {
+            background-color: #15151F;
+        }
+    
+   
+    
+    tr, td {
+    padding: 0 10px;
+    
+    }
+}

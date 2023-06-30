@@ -3,6 +3,8 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import CardPilots from '../../components/CardPilots';
 import React from 'react';
 
+import styles from './personalizada.module.scss'
+
 interface SeasonProps {
     position: string;
     Driver: {
@@ -33,7 +35,7 @@ export default function Personalizada(): JSX.Element {
                 key={i}
                 value={i}
             >
-                Opção {i}
+                Ano {i}
             </option>
         );
     }
@@ -45,7 +47,7 @@ export default function Personalizada(): JSX.Element {
                 key={i}
                 value={i}
             >
-                Opção {i}
+                Corrida {i}
             </option>
         )
     }
@@ -98,21 +100,30 @@ export default function Personalizada(): JSX.Element {
 
 
     return (
-        <div>
+        <div className={styles.personalizadaContainer}>
             <h1>Page Temporadas</h1>
             <br />
-            <p>Escolha a temporada</p>
-            <form>
-                <select onChange={handleChangeYear}>
-                    {optionsYear}
-                </select>
 
-                <p>Escolha a corrida</p>
 
-                <select onChange={handleChangeRound}>
-                    {optionsRound}
-                </select>
+            <form className={styles.form}>
+
+                <div className={styles.inputSelector}>
+                    <label>Escolha a temporada</label>
+                    <select onChange={handleChangeYear}>
+                        {optionsYear}
+                    </select>
+                </div>
+
+
+
+                <div className={styles.inputSelector}>
+                    <label>Escolha a corrida</label>
+                    <select onChange={handleChangeRound}>
+                        {optionsRound}
+                    </select>
+                </div>
                 <input type="button" value="Pesquisar" onClick={newSearch} />
+
             </form>
 
             <br />
@@ -121,7 +132,7 @@ export default function Personalizada(): JSX.Element {
                 <h2>Carregando temporada</h2>
             ) : (
 
-                <>
+                <div className={styles.cardsContainer}>
                     <strong>Temporada {year} - Corrida {round}</strong>
                     <table>
                         <tbody>
@@ -143,7 +154,8 @@ export default function Personalizada(): JSX.Element {
                                 />
                             ))}
                         </tbody>
-                    </table></>
+                    </table>
+                </div>
             )}
         </div>
     );
