@@ -1,9 +1,11 @@
 .personalizadaContainer{
     
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid black;
 
     .form {
         display: flex;
@@ -16,7 +18,9 @@
     }
 
     .cardsContainer {
-        width: 100%;
+        display: flex;
+       justify-content: space-around;
+        width: 100vw;
         
         
     }

@@ -21,8 +21,12 @@ table {
     
    
     
-    tr, td {
+    tr, td, th {
     padding: 0 10px;
     
+    }
+
+    caption {
+        background-color: #15151F;
     }
 }

@@ -64,10 +64,10 @@ useEffect(() => {
 
     
      <aside className={styles.aside}>
-      <strong>Temporada {season} - Corrida: {round}</strong>
-     
-
+ 
     <table>     
+    <caption>Temporada {season} - Corrida {round}</caption>
+
       <tbody>
       <tr>
         <th>Posição</th>
@@ -84,7 +84,7 @@ useEffect(() => {
             <CardPilots key={index}
               Position={driver.position}
 
-              GivernName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
+              GivenName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
               Team={driver.Constructors[0].name}
               Points={driver.points}
               Wins={driver.wins}

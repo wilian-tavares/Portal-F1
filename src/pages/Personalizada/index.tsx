@@ -4,6 +4,7 @@ import CardPilots from '../../components/CardPilots';
 import React from 'react';
 
 import styles from './personalizada.module.scss'
+import CardResultRacing from '../../components/CardResultRacing';
 
 interface SeasonProps {
     position: string;
@@ -11,21 +12,51 @@ interface SeasonProps {
         givenName: string;
         familyName: string;
     }
-    team: string;
+    Constructors: {
+        [0]: {
+          name: string;
+        }
+      };
     points: number;
     wins: number;
+}
+
+interface RacingProps {
+    // PilotDetails: SeasonProps;
+    Driver: {
+        givenName: string;
+        familyName: string;
+    }
+    Constructor: {
+        constructorId: string;
+    }
+    number: number;
+    grid: number;
+    laps: number;
+    position: number;
+    status: string
+    points: number
+    Time: {
+        time: string;
+    }
+
 }
 
 export default function Personalizada(): JSX.Element {
 
     const [season, setSeason] = useState<SeasonProps[]>([]); // temporada
+    const [racing, setRacing] = useState<RacingProps[]>([]); // Racing Details
+
     const [year, setYear] = useState<number>(2023);          // ano 
     const [newYear, setNewYear] = useState<number>(year);    // novo ano
 
     const [round, setRound] = useState<number>(1) // número da corrida
     const [newRound, setNewRound] = useState<number>(round) // novo número da corrida
 
+
     const [loading, setLoading] = useState<boolean>(true)    // loading
+    const [loading2, setLoading2] = useState<boolean>(true)    // loading
+
 
 
     const optionsYear = [];
@@ -57,26 +88,54 @@ export default function Personalizada(): JSX.Element {
             const response = await api.get(`${year}/${round}/driverStandings.json`);
             const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
             const dataSeasson = response.data.MRData.StandingsTable.season;
-            console.log(data.name)
-            console.log(data)
-            console.log(round)
+
 
             setYear(dataSeasson);
             setSeason(data);
+            // console.log(season)
 
 
-            console.log(season)
             setLoading(false)
             console.log(loading)
+
 
         } catch (error) {
             console.log(error);
         }
     }
 
+
+
+    async function getRacing(year?: number, round?: number) {
+        try {
+            const response = await api.get(`/${year}/${round}/results.json`)
+            const data = response.data.MRData.RaceTable.Races[0].Results;
+
+            setRacing(data)
+            console.log(data)
+
+            setLoading2(false)
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+
+    }
+
+
+
+
+
+
+
     useEffect(() => {
         getTemporada(Number(year), Number(round));
     }, [year, round]);
+
+    useEffect(() => {
+        getRacing(Number(year), Number(round))
+    }, [year, round])
 
 
     // troca o número da temporada
@@ -101,7 +160,7 @@ export default function Personalizada(): JSX.Element {
 
     return (
         <div className={styles.personalizadaContainer}>
-            <h1>Page Temporadas</h1>
+            <h1>Tabela Personalizada</h1>
             <br />
 
 
@@ -133,13 +192,13 @@ export default function Personalizada(): JSX.Element {
             ) : (
 
                 <div className={styles.cardsContainer}>
-                    <strong>Temporada {year} - Corrida {round}</strong>
                     <table>
+                        <caption>Temporada {year} - Corrida {round}</caption>
                         <tbody>
                             <tr>
                                 <th>Posição</th>
-                                <th>Pilot</th>
-                                <th>Team</th>
+                                <th>Piloto</th>
+                                <th>Construtora</th>
                                 <th>Pontos</th>
                                 <th>Vitórias</th>
                             </tr>
@@ -147,16 +206,114 @@ export default function Personalizada(): JSX.Element {
                             {season.map((driver, index) => (
                                 <CardPilots key={index}
                                     Position={driver.position}
-                                    GivernName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
-                                    Team={driver.team}
+                                    GivenName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
+                                    Team={driver.Constructors[0].name}
                                     Points={driver.points}
                                     Wins={driver.wins}
                                 />
                             ))}
+
+
                         </tbody>
                     </table>
+
+                    {loading2 ? (
+                        <h2>Loading 2............</h2>
+                    ) : (
+                        <table>
+                            <caption>Temporada {year} - Corrida {round}</caption>
+                            <tbody>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Número</th>
+                                    <th>Piloto</th>
+                                    <th>Construtora</th>
+                                    <th>Grid de largada</th>
+                                    <th>Tempo</th>
+                                    <th>Voltas Completas</th>
+                                    <th>Pontos</th>
+                                    <th>Status</th>
+                                </tr>
+
+                                {racing.map((driver, index) => (
+                                    <CardResultRacing key={index}
+                                        Position={driver.position}
+                                        Number={driver.number}
+
+                                        GivenName={driver.Driver?.givenName}
+                                        FamilyName={driver.Driver.familyName}
+
+                                        Team={driver.Constructor?.constructorId}
+
+                                        Grid={driver.grid}
+                                        Time={driver.Time?.time}
+                                        Lap={driver.laps}
+                                        Points={driver.points}
+                                        Status={driver.status}
+                                    />
+
+                                ))
+
+                                }
+                            </tbody>
+                        </table>
+                    )}
+
+
+
                 </div>
             )}
+
+            {/* {loading2 ? (
+                <h2>Loading 2............</h2>
+            ) : (
+                <table>
+                    <caption>Temporada {year} - Corrida {round}</caption>
+                    <tbody>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Número</th>
+                            <th>Pilot</th>
+                            <th>Team</th>
+                            <th>Grid</th>
+                            <th>Time</th>
+                            <th>Laps</th>
+                            <th>Pontos</th>
+                            <th>Status</th>
+                        </tr>
+
+                        {racing.map((driver, index) => (
+                            <CardResultRacing key={index}
+                                Position={driver.position}
+                                Number={driver.number}
+
+                                GivenName={driver.Driver?.givenName}
+                                FamilyName={driver.Driver.familyName}
+
+                                Team={driver.Constructor?.constructorId}
+
+                                Grid={driver.grid}
+                                Time={driver.Time?.time}
+                                Lap={driver.laps}
+                                Points={driver.points}
+                                Status={driver.status}
+                            />
+
+                        ))
+
+                        }
+                    </tbody>
+                </table>
+            )} */}
+
         </div>
     );
 }
+
+
+
+// PilotDetails: {
+//     givenName: string;
+//     familyName: string;
+//     team: string
+// }
