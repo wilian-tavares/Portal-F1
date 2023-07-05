@@ -2,7 +2,8 @@
 
 import api from '../../Services/api';
 import { useState, useEffect} from 'react';
-import CardPilots from '../../components/CardPilots';
+import CardStandingsPilots from '../../components/CardStandingsPilots';
+import styles from './season.module.scss';
 
 export default function Seassons() {
   const [season, setSeason] = useState([]);
@@ -49,19 +50,20 @@ export default function Seassons() {
   }
 
   return (
-    <div>
-      <h1>Page Temporadas</h1>
+    <div className={styles.seasonContainer}>
+      <h1>Temporadas</h1>
       <br/>
       <p>Escolha a temporada</p> 
       <form>
         <select onChange={handleChange}>
           {options}
         </select>
-        <input type='button' value='Pesquisar' onClick={newSearch}  />
+        <input className={styles.inputBotton} type='button' value='Pesquisar' onClick={newSearch}  />
       </form>
 
       <br/>
       <table>
+        <caption>Temporada de Pilotos {year}</caption>
         <tbody>
           <tr>
             <th>Posição</th>
@@ -73,7 +75,7 @@ export default function Seassons() {
           {
             season.map((driver, index) => {
               return (
-                <CardPilots key={index}
+                <CardStandingsPilots key={index}
                   Position={driver.position}
                   GivernName={driver.Driver?.givenName}
                   DriverId={driver.Driver?.familyName}

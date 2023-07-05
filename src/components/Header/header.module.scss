@@ -4,6 +4,7 @@
     align-items: center;
     height: 150px;
 
+
     background-color: red;
 
     .logo {
@@ -16,21 +17,50 @@
     nav ul {
         display: flex;
         margin-right: 20px;
-        
-        li{
+        flex-wrap: wrap;
+
+        li {
             margin-left: 10px;
             font-size: 24px;
             font-weight: 400;
-            
-            a{
+
+            a {
                 color: var(--white);
+
                 &:hover {
                     color: var(--black);
-                    
+
                     transition: 0.3s;
                 }
             }
         }
-        
+
+    }
+}
+
+@media(max-width: 650px) {
+    nav ul {
+        // flex-direction: column;
+    }
+}
+
+@media(max-width: 550px) {
+    .containerHeader {
+        justify-content: space-around;
+        flex-direction: column;
+    }
+}
+
+
+@media(max-width: 450px) {
+    .containerHeader {
+        .logo {
+            font-size: 30px;
+            margin: 0;
+        }
+
+        nav ul li {
+            font-size: 16px;
+        }
     }
 }

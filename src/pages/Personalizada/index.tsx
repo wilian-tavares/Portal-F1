@@ -1,9 +1,10 @@
 import api from '../../Services/api';
 import { useState, useEffect, ChangeEvent } from 'react';
-import CardPilots from '../../components/CardPilots';
 import React from 'react';
 
 import styles from './personalizada.module.scss'
+
+import CardStandingsPilots from '../../components/CardStandingsPilots';
 import CardResultRacing from '../../components/CardResultRacing';
 
 interface SeasonProps {
@@ -14,9 +15,9 @@ interface SeasonProps {
     }
     Constructors: {
         [0]: {
-          name: string;
+            name: string;
         }
-      };
+    };
     points: number;
     wins: number;
 }
@@ -50,7 +51,7 @@ export default function Personalizada(): JSX.Element {
     const [year, setYear] = useState<number>(2023);          // ano 
     const [newYear, setNewYear] = useState<number>(year);    // novo ano
 
-    const [round, setRound] = useState<number>(1) // número da corrida
+    const [round, setRound] = useState<number>(9) // número da corrida
     const [newRound, setNewRound] = useState<number>(round) // novo número da corrida
 
 
@@ -161,28 +162,28 @@ export default function Personalizada(): JSX.Element {
     return (
         <div className={styles.personalizadaContainer}>
             <h1>Tabela Personalizada</h1>
-            <br />
-
 
             <form className={styles.form}>
-
                 <div className={styles.inputSelector}>
+
                     <label>Escolha a temporada</label>
                     <select onChange={handleChangeYear}>
                         {optionsYear}
                     </select>
                 </div>
-
-
-
                 <div className={styles.inputSelector}>
+
                     <label>Escolha a corrida</label>
                     <select onChange={handleChangeRound}>
                         {optionsRound}
                     </select>
-                </div>
-                <input type="button" value="Pesquisar" onClick={newSearch} />
 
+                </div>
+
+                <div className={styles.inputSelector}>
+                    <input className={styles.inputBotton} type="button" value="Pesquisar" onClick={newSearch} />
+
+                </div>
             </form>
 
             <br />
@@ -192,8 +193,8 @@ export default function Personalizada(): JSX.Element {
             ) : (
 
                 <div className={styles.cardsContainer}>
-                    <table>
-                        <caption>Temporada {year} - Corrida {round}</caption>
+                    <table className={styles.tableSeason}>
+                        <caption>Temporada de Pilotos {year} - Corrida {round}</caption>
                         <tbody>
                             <tr>
                                 <th>Posição</th>
@@ -204,7 +205,7 @@ export default function Personalizada(): JSX.Element {
                             </tr>
 
                             {season.map((driver, index) => (
-                                <CardPilots key={index}
+                                <CardStandingsPilots key={index}
                                     Position={driver.position}
                                     GivenName={driver.Driver?.givenName} DriverId={driver.Driver?.familyName}
                                     Team={driver.Constructors[0].name}
@@ -217,67 +218,25 @@ export default function Personalizada(): JSX.Element {
                         </tbody>
                     </table>
 
-                    {loading2 ? (
-                        <h2>Loading 2............</h2>
-                    ) : (
-                        <table>
-                            <caption>Temporada {year} - Corrida {round}</caption>
-                            <tbody>
-                                <tr>
-                                    <th>Posição</th>
-                                    <th>Número</th>
-                                    <th>Piloto</th>
-                                    <th>Construtora</th>
-                                    <th>Grid de largada</th>
-                                    <th>Tempo</th>
-                                    <th>Voltas Completas</th>
-                                    <th>Pontos</th>
-                                    <th>Status</th>
-                                </tr>
-
-                                {racing.map((driver, index) => (
-                                    <CardResultRacing key={index}
-                                        Position={driver.position}
-                                        Number={driver.number}
-
-                                        GivenName={driver.Driver?.givenName}
-                                        FamilyName={driver.Driver.familyName}
-
-                                        Team={driver.Constructor?.constructorId}
-
-                                        Grid={driver.grid}
-                                        Time={driver.Time?.time}
-                                        Lap={driver.laps}
-                                        Points={driver.points}
-                                        Status={driver.status}
-                                    />
-
-                                ))
-
-                                }
-                            </tbody>
-                        </table>
-                    )}
-
-
 
                 </div>
-            )}
+            )
+            }
 
-            {/* {loading2 ? (
+            {loading2 ? (
                 <h2>Loading 2............</h2>
             ) : (
-                <table>
-                    <caption>Temporada {year} - Corrida {round}</caption>
+                <table className={styles.tableResult}>
+                    <caption>Resultado Corrida {round}</caption>
                     <tbody>
                         <tr>
                             <th>Posição</th>
                             <th>Número</th>
-                            <th>Pilot</th>
-                            <th>Team</th>
-                            <th>Grid</th>
-                            <th>Time</th>
-                            <th>Laps</th>
+                            <th>Piloto</th>
+                            <th>Construtora</th>
+                            <th>Grid de largada</th>
+                            <th>Tempo</th>
+                            <th>Voltas Completas</th>
                             <th>Pontos</th>
                             <th>Status</th>
                         </tr>
@@ -304,16 +263,10 @@ export default function Personalizada(): JSX.Element {
                         }
                     </tbody>
                 </table>
-            )} */}
-
+            )}
         </div>
     );
 }
 
 
 
-// PilotDetails: {
-//     givenName: string;
-//     familyName: string;
-//     team: string
-// }

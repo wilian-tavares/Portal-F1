@@ -1,3 +1,11 @@
+:root {
+    --headerColor: #E10600;
+    --white: #FFFFFF;
+    --divisor: #CCCCCC;
+    --black: #000000;
+}
+
+
 * {
     padding: 0;
     margin: 0;
@@ -7,9 +15,54 @@
     text-decoration: none;
 }
 
-:root {
-    --headerColor: #E10600;
-    --white: #FFFFFF;
-    --divisor: #CCCCCC;
-    --black: #000000;
+select, input {
+    height: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: var(--divisor);
+    margin-right: 10px;
+    border-radius: 8px;
+    width: 150px;
+    text-align: center;
 }
+
+.inputBotton {
+    background-color: green;
+    color: var(--white);
+  }
+    
+caption {
+    background-color: var(--divisor);
+    color: var(--black);
+}
+
+
+table {
+    color: var(--white);
+    text-align: center;
+    max-width: 80%;
+
+    tr:nth-child(odd) {
+        background-color: #22222C;
+        }
+    tr:nth-child(even) {
+            background-color: #15151F;
+        }
+    
+   
+    
+    tr, td, th {
+    padding: 0 10px;
+    
+    }
+    a {
+        color: var(--white);
+        
+        &:hover {
+            color:var(--divisor)
+          }
+    }
+
+  
+}
+

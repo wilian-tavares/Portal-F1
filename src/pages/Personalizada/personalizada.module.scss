@@ -1,27 +1,97 @@
 .personalizadaContainer{
-    
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    width: 90vw;
+   
 
     .form {
         display: flex;
-        border: 1px solid black;
+        
+        align-items: end;
+        justify-content: center;
+      
+        flex-wrap: wrap;
+
+         
+        
     
         .inputSelector {
             display: flex;
+            justify-content: flex-end;
             flex-direction: column;
+            margin: 0 10px;
+            margin-top: 10px;
+           
+            max-height: 40%;
+
+            .inputBotton {
+              background-color: green;
+              color: var(--white);
+            }
+
         }
+            label {
+                margin: 10px 0;
+            }
+
+            .inputBotton {
+               align-self: flex-end;
+            }
+
     }
 
     .cardsContainer {
         display: flex;
        justify-content: space-around;
+       flex-wrap: wrap;
         width: 100vw;
+        
+
         
         
     }
+}
+
+@media(max-width: 800px) {
+    .tableResult, .tableSeason {
+        tr, td, th {
+            padding: 0;
+        }
+    }
+}
+
+@media(max-width: 700px) {
+    .tableResult {
+        font-size: 14px;
+
+        th:nth-child(2) {
+            display: none;
+        }
+         tr td:nth-child(2) {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .tableSeason {
+        font-size: 14px;
+    }
+
+    .tableResult {
+        font-size: 12px;
+ }
+}
+
+@media (max-width: 450px) {
+    .tableSeason {
+        font-size: 10px;
+    }
+
+    .tableResult {
+        font-size: 8px;
+ }
 }

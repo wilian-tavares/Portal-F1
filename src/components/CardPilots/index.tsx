@@ -1,29 +1,28 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import styles from './cardPilots.module.scss'
-
-
-
-interface CardPilotsProps {
-    Position: string;
-    GivenName: string;
-    DriverId: string;
-    Points: number;
-    Team: string;
-    Wins: number;
+interface CardPilotProps {
+    Name: string;
+    Number: string;
+    Code: string;
+    Wiki: string;
+    Nationality: string;
+    DateOfBirth: string;
 }
 
-export default function CardPilots({ Position, GivenName, DriverId, Points, Team, Wins }: CardPilotsProps) {
-    return (
+export default function CardPilots({Name, Number, Code, Wiki, Nationality, DateOfBirth}: CardPilotProps) {
+    return(
 
-        
-            <tr className={styles.containerCardPilots}>
-                <td>{Position}°</td>
-                <td>{GivenName} {DriverId}</td>
-                <td>{Team}</td>
-                <td>{Points}</td>
-                <td>{Wins}</td>
-            </tr>
+        <tr>
+            <td>{Name}</td>
+            <td>{Number}</td>
+            <td>{Code}</td>
+            <td>{Nationality}</td>
+            <td>{DateOfBirth}</td>
+            <td>
+                <a target="_blank" href={`https://pt.wikipedia.org/wiki/${Name}`}>{Name}</a>
+            </td>
+
+        </tr>
     )
 }
-
