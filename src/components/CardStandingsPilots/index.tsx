@@ -5,7 +5,7 @@ import styles from './cardPilots.module.scss'
 
 
 interface CardPilotsProps {
-    Position: string;
+    Position: number;
     GivenName: string;
     DriverId: string;
     Points: number;

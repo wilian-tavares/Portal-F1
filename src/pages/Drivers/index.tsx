@@ -21,15 +21,15 @@ interface AllDriversProps {
 export default function Drivers(): JSX.Element {
 
   const [allDrivers, setAllDrivers] = useState<AllDriversProps[]>([]);
-  const [year, setYear] = useState<number | string>('current')
-  const [newYear, setNewYear] = useState<number | string>();
+  const [year, setYear] = useState<string>('current')
+  // const [newYear, setNewYear] = useState<number | string>();
 
   const options = [];
   for (let i = 2023; i >= 1950; i--) {
     options.push(
       <option
         key={i}
-        value={i}
+        value={String(i)}
       >
         Opção {i}
       </option>
@@ -37,11 +37,11 @@ export default function Drivers(): JSX.Element {
   }
 
 
-  async function getAllDrivers(newYear?: number) {
+  async function getAllDrivers(year?: string) {
     try {
       const response = await api.get(`${year}/drivers.json`)
       const data = response.data.MRData.DriverTable.Drivers;
-      console.log(data);
+      // console.log(data);
       setAllDrivers(data)
 
     } catch (error) {
@@ -50,17 +50,17 @@ export default function Drivers(): JSX.Element {
   }
 
   useEffect(() => {
-    getAllDrivers(Number(year))
+    getAllDrivers(year)
   }, [])
 
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-    setNewYear(e.target.value);
-    setYear(Number(newYear))
+   // setNewYear(e.target.value);
+    setYear(e.target.value)
 
   }
-  async function newSearch(newYear: number): Promise<void> {
-    await getAllDrivers(newYear);
+  async function newSearch(year: string): Promise<void> {
+    await getAllDrivers(year);
   }
 
 
@@ -74,14 +74,14 @@ export default function Drivers(): JSX.Element {
         <select onChange={handleChange}>
           {options}
         </select>
-        <input className={styles.inputBotton} type="button" value="Pesquisar" onClick={() => newSearch(Number(newYear))} />
+        <input className={styles.inputBotton} type="button" value="Pesquisar" onClick={() => newSearch(year)} />
 
       </form>
 
       <table className={styles.tableDrivers}>
         <caption>Pilotos da Temporada {year}</caption>
 
-        <body>
+        <tbody>
           <tr>
             <th>Nome</th>
             <th>Número</th>
@@ -108,7 +108,7 @@ export default function Drivers(): JSX.Element {
             })
 
           }
-        </body>
+        </tbody>
       </table>
 
     </div>

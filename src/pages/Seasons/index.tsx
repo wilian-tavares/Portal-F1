@@ -1,29 +1,42 @@
 
 
 import api from '../../Services/api';
-import { useState, useEffect} from 'react';
+import { useState, useEffect, ChangeEvent} from 'react';
 import CardStandingsPilots from '../../components/CardStandingsPilots';
 import styles from './season.module.scss';
+import React from 'react';
 
-export default function Seassons() {
-  const [season, setSeason] = useState([]);
-  const [year, setYear] = useState(2023);
-  const [newYear, setNewYear] = useState();
+interface SeasonProps {
+  position: number;
+  Driver: {
+    givenName: string;
+    familyName: string;
+  }
+  Constructors: {
+    name: string;
+  };
+  points: number;
+  wins: number;
+}
+
+
+export default function Seassons(): JSX.Element {
+  const [season, setSeason] = useState<SeasonProps[]>([]);
+  const [year, setYear] = useState<string>('2023');
 
   const options = [];
   for (let i = 2023; i >= 1950; i--) {
     options.push(
       <option 
         key={i} 
-        value={i} 
-        name={i}
+        value={String(i)}
       >
         Opção {i}
       </option>
     );
   }
 
-  async function getTemporada(year) {
+  async function getTemporada(year: string) {
     try {
       const response = await api.get(`${year}/driverStandings.json`);
       const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
@@ -31,6 +44,7 @@ export default function Seassons() {
 
       setSeason(data);
       setYear(dataSeasson);
+      console.log(data)
     } catch (error) {
       console.log(error);
     }
@@ -40,13 +54,13 @@ export default function Seassons() {
     getTemporada(year);
   }, []);
 
-  function handleChange(e) {
-    setNewYear(e.target.value);
+  function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
+    setYear(e.target.value);
     
   }
 
   async function newSearch() {
-    await getTemporada(newYear);
+    await getTemporada(year);
   }
 
   return (
@@ -77,9 +91,9 @@ export default function Seassons() {
               return (
                 <CardStandingsPilots key={index}
                   Position={driver.position}
-                  GivernName={driver.Driver?.givenName}
-                  DriverId={driver.Driver?.familyName}
-                  Team={driver.Constructors[0].name}
+                  GivenName={driver.Driver?.givenName}
+                  DriverId={driver.Driver.familyName}
+                  Team={driver.Constructors.name}
                   Points={driver.points}
                   Wins={driver.wins}
                 />

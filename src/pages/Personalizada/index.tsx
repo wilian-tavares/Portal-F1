@@ -8,7 +8,7 @@ import CardStandingsPilots from '../../components/CardStandingsPilots';
 import CardResultRacing from '../../components/CardResultRacing';
 
 interface SeasonProps {
-    position: string;
+    position: number;
     Driver: {
         givenName: string;
         familyName: string;
@@ -48,12 +48,8 @@ export default function Personalizada(): JSX.Element {
     const [season, setSeason] = useState<SeasonProps[]>([]); // temporada
     const [racing, setRacing] = useState<RacingProps[]>([]); // Racing Details
 
-    const [year, setYear] = useState<number>(2023);          // ano 
-    const [newYear, setNewYear] = useState<number>(year);    // novo ano
-
-    const [round, setRound] = useState<number>(9) // número da corrida
-    const [newRound, setNewRound] = useState<number>(round) // novo número da corrida
-
+    const [year, setYear] = useState<string>('2023');          // ano 
+    const [round, setRound] = useState<string>('last') // número da corrida
 
     const [loading, setLoading] = useState<boolean>(true)    // loading
     const [loading2, setLoading2] = useState<boolean>(true)    // loading
@@ -65,7 +61,7 @@ export default function Personalizada(): JSX.Element {
         optionsYear.push(
             <option
                 key={i}
-                value={i}
+                value={String(i)}
             >
                 Ano {i}
             </option>
@@ -77,14 +73,14 @@ export default function Personalizada(): JSX.Element {
         optionsRound.push(
             <option
                 key={i}
-                value={i}
+                value={String(i)}
             >
                 Corrida {i}
             </option>
         )
     }
 
-    async function getTemporada(year?: number, round?: number) {
+    async function getTemporada(year?: string, round?: string) {
         try {
             const response = await api.get(`${year}/${round}/driverStandings.json`);
             const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
@@ -97,7 +93,7 @@ export default function Personalizada(): JSX.Element {
 
 
             setLoading(false)
-            console.log(loading)
+
 
 
         } catch (error) {
@@ -107,13 +103,13 @@ export default function Personalizada(): JSX.Element {
 
 
 
-    async function getRacing(year?: number, round?: number) {
+    async function getRacing(year?: string, round?: string) {
         try {
             const response = await api.get(`/${year}/${round}/results.json`)
             const data = response.data.MRData.RaceTable.Races[0].Results;
 
             setRacing(data)
-            console.log(data)
+            // console.log(data)
 
             setLoading2(false)
         }
@@ -124,36 +120,29 @@ export default function Personalizada(): JSX.Element {
 
     }
 
-
-
-
-
-
+    useEffect(() => {
+        getTemporada(year, round);
+    }, []);
 
     useEffect(() => {
-        getTemporada(Number(year), Number(round));
-    }, [year, round]);
-
-    useEffect(() => {
-        getRacing(Number(year), Number(round))
-    }, [year, round])
+        getRacing(year, round)
+    }, []);
 
 
     // troca o número da temporada
     function handleChangeYear(e: ChangeEvent<HTMLSelectElement>): void {
-        setNewYear(Number(e.target.value));
-        setYear(Number(newYear));
+        setYear(e.target.value);
     }
 
     // troca o número da corrida
     function handleChangeRound(e: ChangeEvent<HTMLSelectElement>): void {
-        setNewRound(Number(e.target.value));
-        setRound(Number(newRound));
+        setRound(e.target.value);
     }
 
 
     async function newSearch(): Promise<void> {
-        await getTemporada(newYear, newRound);
+        await getTemporada(year, round);
+        await getRacing(year, round);
     }
 
 

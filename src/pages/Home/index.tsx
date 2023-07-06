@@ -17,7 +17,7 @@ export default function Home() {
 
 
   interface DriverStandingsProps {
-    position: string;
+    position: number;
     Driver: {
       givenName: string;
       familyName: string
@@ -54,8 +54,7 @@ export default function Home() {
       setSeason(dataSeasson)
       setRound(dataRound)
 
-      console.log(data)
-
+      // console.log(data)
 
     } catch (error) {
       console.log(error)
