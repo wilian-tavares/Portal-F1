@@ -43,7 +43,7 @@ export default function Home() {
 
   async function getdriverStandings() {
     try {
-      const response = await api.get('current/driverStandings.json')
+      const response = await api.get('current/driverStandings.json?limit=100')
       // const data = response.data.MRData.StandingsTable.StandingsLists;
       const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
       const dataSeasson = response.data.MRData.StandingsTable.season;
@@ -63,10 +63,10 @@ export default function Home() {
   }
 
   async function getConstructorsStandings() {
-    const response = await api.get(`current/constructorStandings.json`)
+    const response = await api.get(`current/constructorStandings.json?limit=100`)
     const data = response.data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
     setConstructorStandings(data)
-    console.log(data)
+    // console.log(data)
 
   }
 
