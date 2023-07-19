@@ -82,7 +82,7 @@ export default function Personalizada(): JSX.Element {
 
     async function getTemporada(year?: string, round?: string) {
         try {
-            const response = await api.get(`${year}/${round}/driverStandings.json`);
+            const response = await api.get(`${year}/${round}/driverStandings.json?limit=1000`);
             const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
             const dataSeasson = response.data.MRData.StandingsTable.season;
 
@@ -105,7 +105,7 @@ export default function Personalizada(): JSX.Element {
 
     async function getRacing(year?: string, round?: string) {
         try {
-            const response = await api.get(`/${year}/${round}/results.json`)
+            const response = await api.get(`/${year}/${round}/results.json?limit=1000`)
             const data = response.data.MRData.RaceTable.Races[0].Results;
 
             setRacing(data)

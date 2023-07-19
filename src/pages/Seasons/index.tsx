@@ -38,13 +38,13 @@ export default function Seassons(): JSX.Element {
 
   async function getTemporada(year: string) {
     try {
-      const response = await api.get(`${year}/driverStandings.json`);
+      const response = await api.get(`${year}/driverStandings.json?limit=1000`);
       const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
       const dataSeasson = response.data.MRData.StandingsTable.season;
 
       setSeason(data);
       setYear(dataSeasson);
-      console.log(data)
+      //console.log(data)
     } catch (error) {
       console.log(error);
     }

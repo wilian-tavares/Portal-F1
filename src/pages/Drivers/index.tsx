@@ -39,7 +39,7 @@ export default function Drivers(): JSX.Element {
 
   async function getAllDrivers(year?: string) {
     try {
-      const response = await api.get(`${year}/drivers.json`)
+      const response = await api.get(`${year}/drivers.json?limit=1000`)
       const data = response.data.MRData.DriverTable.Drivers;
       // console.log(data);
       setAllDrivers(data)
