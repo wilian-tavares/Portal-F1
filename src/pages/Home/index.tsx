@@ -81,7 +81,8 @@ export default function Home() {
     <div className={styles.app}>
 
       <div className={styles.homeContainer}>
-        <h1>Portal-F1</h1>
+        <h1>Classificação Formula 1 - {season}</h1>
+        <br></br>
 
         <section>
           <h2>Seja Bem Vindo ao Portal-F1</h2>
@@ -114,7 +115,7 @@ export default function Home() {
         <aside className={styles.aside}>
 
           <table className={styles.tablePilots}>
-            <caption>Temporada de Pilotos {season} - Corrida {round}</caption>
+            <caption>Classificação Formula 1 de Pilotos {season} - Corrida {round}</caption>
 
             <tbody>
               <tr>
